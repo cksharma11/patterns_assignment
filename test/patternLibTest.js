@@ -41,3 +41,23 @@ assert.equal(drawTriangle("right", 2),triangleRight_2);
 
 triangleRight_4 = "   *\n  **\n ***\n****";
 assert.equal(drawTriangle("right", 4),triangleRight_4);
+
+/*-------------- Test for diamonds ------------------*/
+
+let filledDiamond_3 = " *\n***\n *";
+assert.equal(drawDiamond("filled", 3), filledDiamond_3);
+
+let filledDiamond_5 = "  *\n ***\n*****\n ***\n  *";
+assert.equal(drawDiamond("filled", 5), filledDiamond_5);
+
+let hollowDiamond_3 = " *\n* *\n *";
+assert.equal(drawDiamond("hollow", 3), hollowDiamond_3);
+
+let hollowDiamond_5 = "  *\n * *\n*   *\n * *\n  *";
+assert.equal(drawDiamond("hollow", 5), hollowDiamond_5);
+
+let angledDiamond_3 = " *\n* *\n *";
+assert.equal(drawDiamond("angled", 3), angledDiamond_3);
+
+let angledDiamond_5 = "  *\n / \\\n*   *\n \\ /\n  *";
+assert.equal(drawDiamond("angled", 5), angledDiamond_5);
