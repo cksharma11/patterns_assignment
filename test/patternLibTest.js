@@ -28,3 +28,16 @@ dashLine = new Array(5).fill("-").join("");
 let alternateRectangle_5x5 = starLine + "\n" + dashLine;
 alternateRectangle_5x5 += "\n" +starLine + "\n" + dashLine + "\n" + starLine + "\n"; 
 assert.equal(drawRectangle("alternative", 5, 5), alternateRectangle_5x5);
+
+/*---------------- Test for trinagle ---------------------*/
+let triangleLeft_2 = "*\n**";
+assert.equal(drawTriangle("left", 2),triangleLeft_2);
+
+let triangleLeft_4 = "*\n**\n***\n****";
+assert.equal(drawTriangle("left", 4),triangleLeft_4);
+
+let triangleRight_2 = " *\n**";
+assert.equal(drawTriangle("right", 2),triangleRight_2);
+
+triangleRight_4 = "   *\n  **\n ***\n****";
+assert.equal(drawTriangle("right", 4),triangleRight_4);
