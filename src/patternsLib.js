@@ -8,7 +8,8 @@ const {
 } = lib;
 
 const filledDiamond = function(height){
-  let diamond = ""; let unwantedStars = 1;
+  let diamond = ""; 
+  let unwantedStars = 1;
   for(let row = 0; row < height-1; row++){
     numOfSpacesNeeded = Math.abs((height - unwantedStars)/2);
     diamond += fillWithSpace(numOfSpacesNeeded);
@@ -23,7 +24,8 @@ const filledDiamond = function(height){
 }
 
 const hollowDiamond = function(height){
-  let unwantedStars = 3; let diamond = "";
+  let unwantedStars = 3; 
+  let diamond = "";
   numOfSpacesNeeded = Math.abs((height - unwantedStars)/2 +1);
   diamond += fillSpaceEndWithStar(numOfSpacesNeeded) + "\n";
 
@@ -47,7 +49,7 @@ const angledDiamond = function(height){
   let unwantedStars = 3;
   let leftSideSymbol = "/"; 
   let rightSideSymbol = "\\";
-  numOfSpacesNeeded = Math.abs((height - unwantedStars)/2 + 1 );
+  let numOfSpacesNeeded = Math.abs((height - unwantedStars)/2 + 1 );
   diamond += fillSpaceEndWithStar(numOfSpacesNeeded) + "\n";
 
   for(let row = 1; row < height - 1; row++){
@@ -70,20 +72,13 @@ const angledDiamond = function(height){
 }
 
 const drawDiamond = function(type, height){
-  let diamond;
-  if(type == "filled"){
-    diamond = filledDiamond(height);
+  let diamond = {
+    filled: filledDiamond,
+    hollow: hollowDiamond,
+    angled: angledDiamond
   }
-  if(type == "hollow"){
-    diamond = hollowDiamond(height);
-  }
-  if(type == "angled"){
-    diamond = angledDiamond(height);
-  }
-  return diamond;
+  return diamond[type](height);
 }
-
-
 
 const filledRectangle = function(width, height){
   let rectangle = "";
@@ -116,50 +111,40 @@ const alternativeRectangle = function(width, height){
 }
 
 const drawRectangle = function(type, width, height){
-  let output_rectangle;
-  if(type == "filled"){
-    output_rectangle = filledRectangle(width, height);
+  let rectangle = {
+    filled: filledRectangle,
+    empty: emptyRectangle,
+    alternative: alternativeRectangle 
   }
-  if(type == "empty"){
-    output_rectangle = emptyRectangle(width, height);
-  }
-  if(type == "alternative"){
-    output_rectangle = alternativeRectangle(width, height);
-  }
-  return output_rectangle;
+  return rectangle[type](width, height);
+
 }
 
-
-
 const leftAlignedTringle = function(height){
-  let tringle = "";
+  let triangle = "";
   for(let row = 0; row < height-1; row++){
-    tringle += generateLine("*",row) + "\n";
+    triangle += generateLine("*",row) + "\n";
   }
-  tringle += generateLine("*",height-1);
-  return tringle;
+  triangle += generateLine("*",height-1);
+  return triangle;
 }
 
 const rightAlignedTringle = function(height){  
-  let tringle = "";
+  let triangle = "";
   for(let row = 0; row < height-1; row++){
-    tringle += generateLine(" ", height-row-2);
-    tringle += generateLine("*", row) + "\n";
+    triangle += generateLine(" ", height-row-2);
+    triangle += generateLine("*", row) + "\n";
   }
-  tringle += generateLine("*",height-1);
-  return tringle;
+  triangle += generateLine("*",height-1);
+  return triangle;
 }
 
 const drawTriangle = function(alignment, height){
-  let tringle;
-  
-  if(alignment == "right"){
-    tringle = rightAlignedTringle(height);
-  } else{
-    tringle = leftAlignedTringle(height);
+  let triangle = {
+    right: rightAlignedTringle,
+    left: leftAlignedTringle
   }
-  
-  return tringle;
+  return triangle[alignment](height);
 }
 
 exports.drawTriangle = drawTriangle;
