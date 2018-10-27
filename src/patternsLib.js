@@ -1,26 +1,11 @@
-const fillWithStar = function(height){
-  let filledString = "";
-  for(let index = 0; index < height; index++){
-    filledString += "*";
-  }
-  return filledString;
-}
-
-const fillWithSpace = function(height){
-  let filledString = "";
-  for(let index = 0; index < height; index++){
-    filledString += " ";
-  }
-  return filledString;
-}
-
-const fillSpaceEndWithStar = function(height){
-  let filledString = "";
-  for(let index =0; index < height; index++){
-    filledString += " ";
-  }
-  return filledString + "*";
-}
+const lib = require("./patternsUtilLib.js");
+const {
+  fillWithStar,
+  fillWithSpace,
+  fillSpaceEndWithStar,
+  drawLine,
+  generateLine
+} = lib;
 
 const filledDiamond = function(height){
   let diamond = ""; let unwantedStars = 1;
@@ -99,13 +84,6 @@ const drawDiamond = function(type, height){
 }
 
 
-const drawLine = function(symbol, length){
-  line = "";
-  for(let index = 0; index < length; index++){
-    line += symbol;
-  }
-  return line;
-}
 
 const filledRectangle = function(width, height){
   let rectangle = "";
@@ -152,13 +130,6 @@ const drawRectangle = function(type, width, height){
 }
 
 
-const generateLine = function(symbol, length){
-  let line ="";
-  for(let index = 0; index <= length; index++){
-    line += symbol;
-  }
-  return line;
-}
 
 const leftAlignedTringle = function(height){
   let tringle = "";
