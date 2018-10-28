@@ -4,7 +4,8 @@ const {
   fillWithSpace,
   fillSpaceEndWithStar,
   drawLine,
-  generateLine
+  generateLine,
+  categorizeArguments
 } = lib;
 
 const filledDiamond = function(height){
@@ -71,13 +72,14 @@ const angledDiamond = function(height){
   return diamond;
 }
 
-const drawDiamond = function(type, height){
+const drawDiamond = function(patternDetails){
+  let {type, width} = categorizeArguments(patternDetails);
   let diamond = {
     filled: filledDiamond,
     hollow: hollowDiamond,
     angled: angledDiamond
   }
-  return diamond[type](height);
+  return diamond[type](width);
 }
 
 const filledRectangle = function(width, height){
@@ -110,14 +112,14 @@ const alternativeRectangle = function(width, height){
   return rectangle;
 }
 
-const drawRectangle = function(type, width, height){
+const drawRectangle = function(patternDetails){
+  let {type, width, height} = categorizeArguments(patternDetails);
   let rectangle = {
     filled: filledRectangle,
     empty: emptyRectangle,
     alternative: alternativeRectangle 
   }
   return rectangle[type](width, height);
-
 }
 
 const leftAlignedTringle = function(height){
@@ -139,14 +141,16 @@ const rightAlignedTringle = function(height){
   return triangle;
 }
 
-const drawTriangle = function(alignment, height){
+const drawTriangle = function(patternDetails){
+  let {type, width} = categorizeArguments(patternDetails);
   let triangle = {
     right: rightAlignedTringle,
     left: leftAlignedTringle
   }
-  return triangle[alignment](height);
+  return triangle[type](width);
 }
 
 exports.drawTriangle = drawTriangle;
 exports.drawDiamond = drawDiamond;
 exports.drawRectangle = drawRectangle;
+exports.categorizeArguments = categorizeArguments;
