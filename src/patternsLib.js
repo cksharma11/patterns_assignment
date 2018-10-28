@@ -9,66 +9,61 @@ const {
 } = lib;
 
 const filledDiamond = function(height){
-  let diamond = ""; 
-  let unwantedStars = 1;
-  for(let row = 0; row < height-1; row++){
-    numOfSpacesNeeded = Math.abs((height - unwantedStars)/2);
-    diamond += fillWithSpace(numOfSpacesNeeded);
-
-    numOfStarNeeded = (height - (numOfSpacesNeeded*2));
-    diamond += fillWithStar(numOfStarNeeded) + "\n";
-    unwantedStars += 2;
+  let diamond = []; 
+  let spaces = 1;
+  for(let row = 0; row < height; row++,spaces += 2){
+    let numOfSpacesNeeded = Math.abs((height - spaces)/2);
+    let numOfStarNeeded = (height - (numOfSpacesNeeded*2));
+    diamond[row] = fillWithSpace(numOfSpacesNeeded);
+    diamond[row] += fillWithStar(numOfStarNeeded);
   }
-  numOfSpacesNeeded = Math.abs((height - unwantedStars)/2);
-  diamond += fillSpaceEndWithStar(numOfSpacesNeeded);
   return diamond;
 }
 
 const hollowDiamond = function(height){
   let unwantedStars = 3; 
-  let diamond = "";
-  numOfSpacesNeeded = Math.abs((height - unwantedStars)/2 +1);
-  diamond += fillSpaceEndWithStar(numOfSpacesNeeded) + "\n";
+  let diamond = [];
+  let numOfSpacesNeeded = Math.abs((height - unwantedStars)/2 +1);
+  diamond [0] = fillSpaceEndWithStar(numOfSpacesNeeded);
 
   for(let row = 1; row < height -1; row++){
     numOfSpacesNeeded = Math.abs((height - unwantedStars)/2);
-    diamond += fillSpaceEndWithStar(numOfSpacesNeeded);
+    diamond[row] = fillSpaceEndWithStar(numOfSpacesNeeded);
 
     numOfStarNeeded = (height - (numOfSpacesNeeded*2));
-    diamond += fillSpaceEndWithStar(Math.abs(numOfStarNeeded - 2)) + "\n";
+    diamond[row] += fillSpaceEndWithStar(Math.abs(numOfStarNeeded - 2));
     unwantedStars += 2;
   }
 
   numOfSpacesNeeded = Math.abs((height - unwantedStars)/2);
-  diamond += fillSpaceEndWithStar(numOfSpacesNeeded);
-
+  diamond[height-1] = fillSpaceEndWithStar(numOfSpacesNeeded);
   return diamond;
 }
 
 const angledDiamond = function(height){
-  let diamond = "";
+  let diamond = [];
   let unwantedStars = 3;
   let leftSideSymbol = "/"; 
   let rightSideSymbol = "\\";
   let numOfSpacesNeeded = Math.abs((height - unwantedStars)/2 + 1 );
-  diamond += fillSpaceEndWithStar(numOfSpacesNeeded) + "\n";
+  diamond[0] = fillSpaceEndWithStar(numOfSpacesNeeded);
 
   for(let row = 1; row < height - 1; row++){
     numOfSpacesNeeded = Math.abs((height - unwantedStars)/2);
-    diamond += fillWithSpace(numOfSpacesNeeded);
+    diamond[row] = fillWithSpace(numOfSpacesNeeded);
     if(numOfSpacesNeeded == 0){
-      diamond += "*" + fillWithSpace(height -2)+ "*"+"\n";
+      diamond[row] = "*" + fillWithSpace(height -2) + "*";
       leftSideSymbol = "\\";
       rightSideSymbol = "/";
       unwantedStars += 2;
       continue;
     }
     numOfStarNeeded = (height - (numOfSpacesNeeded*2));
-    diamond += leftSideSymbol+fillWithSpace(numOfStarNeeded -2) + rightSideSymbol+"\n";
+    diamond[row] += leftSideSymbol+fillWithSpace(numOfStarNeeded -2) + rightSideSymbol;
     unwantedStars += 2;
   }
   numOfSpacesNeeded = Math.abs((height - unwantedStars)/2);
-  diamond += fillSpaceEndWithStar(numOfSpacesNeeded);
+  diamond[height-1] = fillSpaceEndWithStar(numOfSpacesNeeded);
   return diamond;
 }
 
@@ -79,7 +74,8 @@ const drawDiamond = function(patternDetails){
     hollow: hollowDiamond,
     angled: angledDiamond
   }
-  return diamond[type](width);
+  let result = diamond[type](width);
+  return result.join('\n');
 }
 
 const filledRectangle = function(width, height){
@@ -117,7 +113,7 @@ const drawRectangle = function(patternDetails){
   return rectangle.join('\n');
 }
 
-const leftAlignedTringle = function(height){
+const leftAlignedTriangle = function(height){
   let triangle = [];
   for(let index = 0; triangle.push(++index), index < height;);
   
@@ -126,7 +122,7 @@ const leftAlignedTringle = function(height){
   });
 }
 
-const rightAlignedTringle = function(height){  
+const rightAlignedTriangle = function(height){  
   let triangle = [];
   let noOfSpaceNeeded = height - 1;
   for(let row = 0; row < height; row++){
@@ -139,8 +135,8 @@ const rightAlignedTringle = function(height){
 const drawTriangle = function(patternDetails){
   let {type, width} = patternDetails;
   let triangle = {
-    right: rightAlignedTringle,
-    left: leftAlignedTringle
+    right: rightAlignedTriangle,
+    left: leftAlignedTriangle
   }
   let result = triangle[type](width);
   return result.join('\n');
