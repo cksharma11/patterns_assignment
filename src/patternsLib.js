@@ -8,7 +8,7 @@ const {
   categorizeArguments
 } = lib;
 
-const filledDiamond = function(height){
+const generateFilledDiamond = function(height){
   let diamond = []; 
   let spaces = 1;
   for(let row = 0; row < height; row++,spaces += 2){
@@ -20,7 +20,7 @@ const filledDiamond = function(height){
   return diamond;
 }
 
-const hollowDiamond = function(height){
+const generateHollowDiamond = function(height){
   let unwantedStars = 3; 
   let diamond = [];
   let numOfSpacesNeeded = Math.abs((height - unwantedStars)/2 +1);
@@ -40,7 +40,7 @@ const hollowDiamond = function(height){
   return diamond;
 }
 
-const angledDiamond = function(height){
+const generateAngledDiamond = function(height){
   let diamond = [];
   let unwantedStars = 3;
   let leftSideSymbol = "/"; 
@@ -70,20 +70,20 @@ const angledDiamond = function(height){
 const drawDiamond = function(patternDetails){
   let {type, width} = patternDetails;
   let diamond = {
-    filled: filledDiamond,
-    hollow: hollowDiamond,
-    angled: angledDiamond
+    filled: generateFilledDiamond,
+    hollow: generateHollowDiamond,
+    angled: generateAngledDiamond
   }
   let result = diamond[type](width);
   return result.join('\n');
 }
 
-const filledRectangle = function(width, height){
+const generateFilledRectangle = function(width, height){
   let rectangle = new Array(height).fill(fillWithStar(width));
   return rectangle;
 }
 
-const emptyRectangle = function(width, height){
+const generateHollowRectangle = function(width, height){
   let rectangle = [];
   rectangle[0] = fillWithStar(width);
   for(let row = 1; row < height-1; row++){
@@ -93,7 +93,7 @@ const emptyRectangle = function(width, height){
   return rectangle;
 }
 
-const alternativeRectangle = function(width, height){
+const generateAlternateRectangle = function(width, height){
   let rectangle = [];
   let alternateLines = [[drawLine('*',width)],[drawLine('-',width)]];
   for(let row = 0; row < height; row ++){
@@ -105,15 +105,15 @@ const alternativeRectangle = function(width, height){
 const drawRectangle = function(patternDetails){
   let {type, width, height} = patternDetails;
   let rectangleOfType = {
-    filled: filledRectangle,
-    empty: emptyRectangle,
-    alternative: alternativeRectangle 
+    filled: generateFilledRectangle,
+    hollow: generateHollowRectangle,
+    alternative: generateAlternateRectangle 
   }
   let rectangle = rectangleOfType[type](width, height);
   return rectangle.join('\n');
 }
 
-const leftAlignedTriangle = function(height){
+const generateLeftAlignedTriangle = function(height){
   let triangle = [];
   for(let index = 0; triangle.push(++index), index < height;);
   
@@ -122,7 +122,7 @@ const leftAlignedTriangle = function(height){
   });
 }
 
-const rightAlignedTriangle = function(height){  
+const generateRightAlignedTriangle = function(height){  
   let triangle = [];
   let noOfSpaceNeeded = height - 1;
   for(let row = 0; row < height; row++){
@@ -135,8 +135,8 @@ const rightAlignedTriangle = function(height){
 const drawTriangle = function(patternDetails){
   let {type, width} = patternDetails;
   let triangle = {
-    right: rightAlignedTriangle,
-    left: leftAlignedTriangle
+    right: generateRightAlignedTriangle,
+    left: generateLeftAlignedTriangle
   }
   let result = triangle[type](width);
   return result.join('\n');

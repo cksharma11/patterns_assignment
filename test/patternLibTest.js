@@ -21,13 +21,13 @@ assert.equal(drawRectangle({type:'filled',width:20,height:5}),filledRectangle_20
 
 let generateEmptyRectangle_2x2  = "**\n";
 generateEmptyRectangle_2x2     += "**";
-assert.equal(drawRectangle({type:"empty", width:2,height:2}),generateEmptyRectangle_2x2);
+assert.equal(drawRectangle({type:"hollow", width:2,height:2}),generateEmptyRectangle_2x2);
 
 let generateEmptyRectangle_4x4 = "****\n";
 generateEmptyRectangle_4x4    += "*  *\n";
 generateEmptyRectangle_4x4    += "*  *\n";
 generateEmptyRectangle_4x4    += "****";
-assert.equal(drawRectangle({type:"empty", width:4,height:4}),generateEmptyRectangle_4x4);
+assert.equal(drawRectangle({type:"hollow", width:4,height:4}),generateEmptyRectangle_4x4);
 
 
 let alternateRectangle_3x3  = "***\n";
