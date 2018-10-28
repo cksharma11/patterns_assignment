@@ -73,7 +73,7 @@ const angledDiamond = function(height){
 }
 
 const drawDiamond = function(patternDetails){
-  let {type, width} = categorizeArguments(patternDetails);
+  let {type, width} = patternDetails;
   let diamond = {
     filled: filledDiamond,
     hollow: hollowDiamond,
@@ -113,7 +113,7 @@ const alternativeRectangle = function(width, height){
 }
 
 const drawRectangle = function(patternDetails){
-  let {type, width, height} = categorizeArguments(patternDetails);
+  let {type, width, height} = patternDetails;
   let rectangle = {
     filled: filledRectangle,
     empty: emptyRectangle,
@@ -142,7 +142,7 @@ const rightAlignedTringle = function(height){
 }
 
 const drawTriangle = function(patternDetails){
-  let {type, width} = categorizeArguments(patternDetails);
+  let {type, width} = patternDetails;
   let triangle = {
     right: rightAlignedTringle,
     left: leftAlignedTringle
