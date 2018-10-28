@@ -1,8 +1,11 @@
 const categorizeArguments = function(arguments){
+  if(arguments[4] == undefined){
+    arguments.push(arguments[3]);
+  }
   return {
-    type: process.argv[2],
-    width: +process.argv[3],
-    height: +process.argv[4],
+    type: arguments[2],
+    width: +arguments[3],
+    height: +arguments[4],
   }
 }
 
