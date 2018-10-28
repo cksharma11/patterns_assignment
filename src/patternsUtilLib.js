@@ -9,46 +9,31 @@ const categorizeArguments = function(arguments){
   }
 }
 
-const fillWithStar = function(height){
-  let filledString = "";
-  for(let index = 0; index < height; index++){
-    filledString += "*";
-  }
-  return filledString;
+const fillWithStar = function(times){
+  let line = new Array(times).fill('*');
+  return line.join('');
 }
 
-const fillWithSpace = function(height){
-  let filledString = "";
-  for(let index = 0; index < height; index++){
-    filledString += " ";
-  }
-  return filledString;
+const fillWithSpace = function(times){
+  let line = new Array(times).fill(' ');
+  return line.join('');
 }
 
-const fillSpaceEndWithStar = function(height){
-  let filledString = "";
-  for(let index =0; index < height; index++){
-    filledString += " ";
-  }
-  return filledString + "*";
+const fillSpaceEndWithStar = function(times){
+  let line = new Array(times).fill(' ');
+  return line.join('')+'*';
 }
 
 
 const drawLine = function(symbol, length){
-  line = "";
-  for(let index = 0; index < length; index++){
-    line += symbol;
-  }
-  return line;
+  let line = new Array(length).fill(symbol);
+  return line.join('');
 }
 
 
 const generateLine = function(symbol, length){
-  let line ="";
-  for(let index = 0; index <= length; index++){
-    line += symbol;
-  }
-  return line;
+  let line = new Array(length+1).fill(symbol);
+  return line.join('');
 }
 
 exports.fillWithStar = fillWithStar;
