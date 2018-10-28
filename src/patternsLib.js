@@ -83,43 +83,38 @@ const drawDiamond = function(patternDetails){
 }
 
 const filledRectangle = function(width, height){
-  let rectangle = "";
-  for(let row = 0; row < height-1; row++){
-    rectangle += drawLine("*", width)+"\n";
-  }
-  rectangle += drawLine("*", width);
+  let rectangle = new Array(height).fill(fillWithStar(width));
   return rectangle;
 }
 
 const emptyRectangle = function(width, height){
-  let rectangle = drawLine("*", width)+"\n";
-  for(let row = 0; row < height-2; row++){
-    rectangle += "*" + drawLine(" ", width-2) +"*\n";
+  let rectangle = [];
+  rectangle[0] = fillWithStar(width);
+  for(let row = 1; row < height-1; row++){
+    rectangle[row] = "*" + fillWithSpace(width-2) + "*";
   }
-  rectangle += drawLine("*", width);
+  rectangle[height-1] = fillWithStar(width);
   return rectangle;
 }
 
 const alternativeRectangle = function(width, height){
-  let rectangle = "";
-  for(let row = 0; row < height; row++){
-    let symbol = "-";
-    if(row % 2 == 0){
-      symbol = "*"; 
-    }
-    rectangle += drawLine(symbol, width) + "\n";
+  let rectangle = [];
+  let alternateLines = [[drawLine('*',width)],[drawLine('-',width)]];
+  for(let row = 0; row < height; row ++){
+    rectangle[row] = alternateLines[row % 2];
   }
   return rectangle;
 }
 
 const drawRectangle = function(patternDetails){
   let {type, width, height} = patternDetails;
-  let rectangle = {
+  let rectangleOfType = {
     filled: filledRectangle,
     empty: emptyRectangle,
     alternative: alternativeRectangle 
   }
-  return rectangle[type](width, height);
+  let rectangle = rectangleOfType[type](width, height);
+  return rectangle.join('\n');
 }
 
 const leftAlignedTringle = function(height){

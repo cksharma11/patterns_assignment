@@ -32,14 +32,14 @@ assert.equal(drawRectangle({type:"empty", width:4,height:4}),generateEmptyRectan
 
 let alternateRectangle_3x3  = "***\n";
 alternateRectangle_3x3     += "---\n";
-alternateRectangle_3x3     += "***\n";
+alternateRectangle_3x3     += "***";
 assert.equal(drawRectangle({type:"alternative", width:3,height:3}),alternateRectangle_3x3);
 
 let alternateRectangle_20x5  = "********************\n";
 alternateRectangle_20x5     += "--------------------\n";
 alternateRectangle_20x5     += "********************\n";
 alternateRectangle_20x5     += "--------------------\n";
-alternateRectangle_20x5     += "********************\n";
+alternateRectangle_20x5     += "********************";
 assert.equal(drawRectangle({type:"alternative", width:20,height:5}),alternateRectangle_20x5);
 
 /*---------------- Test for triangle ---------------------*/
