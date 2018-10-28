@@ -118,21 +118,21 @@ const drawRectangle = function(patternDetails){
 }
 
 const leftAlignedTringle = function(height){
-  let triangle = "";
-  for(let row = 0; row < height-1; row++){
-    triangle += generateLine("*",row) + "\n";
-  }
-  triangle += generateLine("*",height-1);
-  return triangle;
+  let triangle = [];
+  for(let index = 0; triangle.push(++index), index < height;);
+  
+  return triangle.map(function(index){
+    return fillWithStar(index);
+  });
 }
 
 const rightAlignedTringle = function(height){  
-  let triangle = "";
-  for(let row = 0; row < height-1; row++){
-    triangle += generateLine(" ", height-row-2);
-    triangle += generateLine("*", row) + "\n";
+  let triangle = [];
+  let noOfSpaceNeeded = height - 1;
+  for(let row = 0; row < height; row++){
+    triangle[row] = drawLine(' ',noOfSpaceNeeded--);
+    triangle[row] += drawLine("*", row+1);
   }
-  triangle += generateLine("*",height-1);
   return triangle;
 }
 
@@ -142,7 +142,8 @@ const drawTriangle = function(patternDetails){
     right: rightAlignedTringle,
     left: leftAlignedTringle
   }
-  return triangle[type](width);
+  let result = triangle[type](width);
+  return result.join('\n');
 }
 
 exports.drawTriangle = drawTriangle;
