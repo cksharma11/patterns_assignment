@@ -9,6 +9,12 @@ const categorizeArguments = function(arguments){
   }
 }
 
+const justifyLineRight = function(text, index, triangle){
+  let numberOfspaces = triangle.length - text.length;
+  let space = drawLine(' ',numberOfspaces);
+  return space + text;
+}
+
 const fillWithStar = function(times){
   let line = new Array(times).fill('*');
   return line.join('');
@@ -42,3 +48,4 @@ exports.fillSpaceEndWithStar = fillSpaceEndWithStar;
 exports.drawLine = drawLine;
 exports.categorizeArguments = categorizeArguments;
 exports.generateLine = generateLine;
+exports.justifyLineRight = justifyLineRight;

@@ -5,7 +5,8 @@ const {
   fillSpaceEndWithStar,
   drawLine,
   generateLine,
-  categorizeArguments
+  categorizeArguments,
+  justifyLineRight
 } = lib;
 
 const generateFilledDiamond = function(height){
@@ -116,22 +117,16 @@ const drawRectangle = function(patternDetails){
 }
 
 const generateLeftAlignedTriangle = function(height){
-  let triangle = [];
-  for(let index = 0; triangle.push(++index), index < height;);
+  let triangle = new Array(height).fill('');
   
-  return triangle.map(function(index){
-    return fillWithStar(index);
+  return triangle.map(function(row, index){
+    return fillWithStar(++index);
   });
 }
 
 const generateRightAlignedTriangle = function(height){  
-  let triangle = [];
-  let numberOfSpace = height - 1;
-  for(let row = 0; row < height; row++){
-    triangle[row] = drawLine(' ',numberOfSpace--);
-    triangle[row] += drawLine("*", row+1);
-  }
-  return triangle;
+  let triangle = generateLeftAlignedTriangle(height);
+  return triangle.map(justifyLineRight);
 }
 
 const drawTriangle = function(patternDetails){
