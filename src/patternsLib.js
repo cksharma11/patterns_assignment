@@ -12,9 +12,9 @@ const generateFilledDiamond = function(height){
   let diamond = []; 
   let spaces = 1;
   for(let row = 0; row < height; row++,spaces += 2){
-    let numOfSpacesNeeded = Math.abs((height - spaces)/2);
-    let numOfStarNeeded = (height - (numOfSpacesNeeded*2));
-    diamond[row] = fillWithSpace(numOfSpacesNeeded);
+    let numberOfSpace = Math.abs((height - spaces)/2);
+    let numOfStarNeeded = (height - (numberOfSpace*2));
+    diamond[row] = fillWithSpace(numberOfSpace);
     diamond[row] += fillWithStar(numOfStarNeeded);
   }
   return diamond;
@@ -23,20 +23,20 @@ const generateFilledDiamond = function(height){
 const generateHollowDiamond = function(height){
   let unwantedStars = 3; 
   let diamond = [];
-  let numOfSpacesNeeded = Math.abs((height - unwantedStars)/2 +1);
-  diamond [0] = fillSpaceEndWithStar(numOfSpacesNeeded);
+  let numberOfSpace = Math.abs((height - unwantedStars)/2 +1);
+  diamond [0] = fillSpaceEndWithStar(numberOfSpace);
 
   for(let row = 1; row < height -1; row++){
-    numOfSpacesNeeded = Math.abs((height - unwantedStars)/2);
-    diamond[row] = fillSpaceEndWithStar(numOfSpacesNeeded);
+    numberOfSpace = Math.abs((height - unwantedStars)/2);
+    diamond[row] = fillSpaceEndWithStar(numberOfSpace);
 
-    numOfStarNeeded = (height - (numOfSpacesNeeded*2));
+    numOfStarNeeded = (height - (numberOfSpace*2));
     diamond[row] += fillSpaceEndWithStar(Math.abs(numOfStarNeeded - 2));
     unwantedStars += 2;
   }
 
-  numOfSpacesNeeded = Math.abs((height - unwantedStars)/2);
-  diamond[height-1] = fillSpaceEndWithStar(numOfSpacesNeeded);
+  numberOfSpace = Math.abs((height - unwantedStars)/2);
+  diamond[height-1] = fillSpaceEndWithStar(numberOfSpace);
   return diamond;
 }
 
@@ -45,25 +45,25 @@ const generateAngledDiamond = function(height){
   let unwantedStars = 3;
   let leftSideSymbol = "/"; 
   let rightSideSymbol = "\\";
-  let numOfSpacesNeeded = Math.abs((height - unwantedStars)/2 + 1 );
-  diamond[0] = fillSpaceEndWithStar(numOfSpacesNeeded);
+  let numberOfSpace = Math.abs((height - unwantedStars)/2 + 1 );
+  diamond[0] = fillSpaceEndWithStar(numberOfSpace);
 
   for(let row = 1; row < height - 1; row++){
-    numOfSpacesNeeded = Math.abs((height - unwantedStars)/2);
-    diamond[row] = fillWithSpace(numOfSpacesNeeded);
-    if(numOfSpacesNeeded == 0){
+    numberOfSpace = Math.abs((height - unwantedStars)/2);
+    diamond[row] = fillWithSpace(numberOfSpace);
+    if(numberOfSpace == 0){
       diamond[row] = "*" + fillWithSpace(height -2) + "*";
       leftSideSymbol = "\\";
       rightSideSymbol = "/";
       unwantedStars += 2;
       continue;
     }
-    numOfStarNeeded = (height - (numOfSpacesNeeded*2));
+    numOfStarNeeded = (height - (numberOfSpace*2));
     diamond[row] += leftSideSymbol+fillWithSpace(numOfStarNeeded -2) + rightSideSymbol;
     unwantedStars += 2;
   }
-  numOfSpacesNeeded = Math.abs((height - unwantedStars)/2);
-  diamond[height-1] = fillSpaceEndWithStar(numOfSpacesNeeded);
+  numberOfSpace = Math.abs((height - unwantedStars)/2);
+  diamond[height-1] = fillSpaceEndWithStar(numberOfSpace);
   return diamond;
 }
 
@@ -85,22 +85,23 @@ const generateFilledRectangle = function(width, height){
 }
 
 const generateHollowRectangle = function(width, height){
-  let rectangle = [];
-  rectangle[0] = fillWithStar(width);
-  for(let row = 1; row < height-1; row++){
-    rectangle[row] = "*" + fillWithSpace(width-2) + "*";
-  }
-  rectangle[height-1] = fillWithStar(width);
-  return rectangle;
+  let rectangle = new Array(height).fill('');
+  
+  return rectangle.map(function(row, index){
+    if(index == 0 || index == height-1){
+      return drawLine('*', width);
+    }
+    return '*' + drawLine(' ', width-2) + '*';
+  });
 }
 
 const generateAlternateRectangle = function(width, height){
-  let rectangle = [];
-  let alternateLines = [[drawLine('*',width)],[drawLine('-',width)]];
-  for(let row = 0; row < height; row ++){
-    rectangle[row] = alternateLines[row % 2];
-  }
-  return rectangle;
+  let rectangle = new Array(height).fill('');
+  let characters = ['*','-'];
+  
+  return rectangle.map(function(row, index){
+    return drawLine(characters[index%2], width);
+  });
 }
 
 const drawRectangle = function(patternDetails){
@@ -125,9 +126,9 @@ const generateLeftAlignedTriangle = function(height){
 
 const generateRightAlignedTriangle = function(height){  
   let triangle = [];
-  let noOfSpaceNeeded = height - 1;
+  let numberOfSpace = height - 1;
   for(let row = 0; row < height; row++){
-    triangle[row] = drawLine(' ',noOfSpaceNeeded--);
+    triangle[row] = drawLine(' ',numberOfSpace--);
     triangle[row] += drawLine("*", row+1);
   }
   return triangle;
