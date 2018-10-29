@@ -69,6 +69,7 @@ const generateAngledDiamond = function(height){
 
 const drawDiamond = function(patternDetails){
   let {type, width} = patternDetails;
+  if(width % 2 == 0){ width-- };
   let diamond = {
     filled: generateFilledDiamond,
     hollow: generateHollowDiamond,
