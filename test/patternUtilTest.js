@@ -5,6 +5,7 @@ const fillWithStar = lib.fillWithStar;
 const fillWithSpace = lib.fillWithSpace;
 const fillSpaceEndWithStar = lib.fillSpaceEndWithStar;
 const categorizeArguments = lib.categorizeArguments;
+const justifyLineRight = lib.justifyLineRight;
 
 const repeateCharacter = function(charcater, times){
   return new Array(times).fill(charcater).join("");
@@ -36,5 +37,11 @@ assert.deepEqual(categorizeArguments([0,0,"empty",12,12]),{type: 'empty', width:
 
 assert.deepEqual(categorizeArguments([0,0,"hollow",2]),{type: 'hollow', width: 2, height: 2});
 assert.deepEqual(categorizeArguments([0,0,"angled",22]),{type: 'angled', width: 22, height: 22});
+
+assert.equal(justifyLineRight('*',0,['','','']), '  *');
+assert.equal(justifyLineRight('**',0,['','','']), ' **');
+
+assert.equal(justifyLineRight('***',0,['','','']), '***');
+assert.equal(justifyLineRight('*',0,['','','','']), '   *');
 
 console.log("All Test Passed.")
