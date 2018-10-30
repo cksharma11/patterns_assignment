@@ -6,6 +6,7 @@ const fillWithSpace = lib.fillWithSpace;
 const fillSpaceEndWithStar = lib.fillSpaceEndWithStar;
 const categorizeArguments = lib.categorizeArguments;
 const justifyLineRight = lib.justifyLineRight;
+const groupArguments = lib.groupArguments;
 
 const repeateCharacter = function(charcater, times){
   return new Array(times).fill(charcater).join("");
@@ -43,5 +44,10 @@ assert.equal(justifyLineRight('**',0,['','','']), ' **');
 
 assert.equal(justifyLineRight('***',0,['','','']), '***');
 assert.equal(justifyLineRight('*',0,['','','','']), '   *');
+
+let userInput = ['1','2','filled_rectangle',2,2,'filled_diamond',4];
+let expectedOut = [{pattern: 'filled_rectangle', width: 2, height: 2, index: 3}, 
+                   {pattern: 'filled_diamond', height: 4, index:5}];
+assert.deepEqual(groupArguments(userInput), expectedOut);
 
 console.log("All Test Passed.")

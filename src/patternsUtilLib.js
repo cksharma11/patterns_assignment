@@ -9,6 +9,49 @@ const categorizeArguments = function(arguments){
   }
 }
 
+const arrangeRectArg = function(arguments, index){
+  return {
+    pattern: arguments[index++],
+    width: arguments[index++],
+    height: arguments[index++],
+    index: index++
+  };
+}
+
+const arrangeTriArg = function(arguments, index){
+  return {
+    pattern: arguments[index++],
+    width: arguments[index++],
+    index: index,
+  };
+}
+
+const arrangeDiaArg = function(arguments, index){
+  return {
+    pattern: arguments[index++],
+    width: arguments[index++],
+    index: index,
+  };
+}
+
+const groupArguments = function(arguments){
+  arguments = arguments.slice(2);
+  let index = 0;
+  let categorizedArgList = [];
+  let categories = {
+    rectangle: arrangeRectArg,
+    triangle: arrangeTriArg,
+    diamond: arrangeDiaArg
+  }
+  while(arguments[index]){
+    let type = arguments[index].split('_');
+    let patternType = type[1];
+    categorizedArgList.push(categories[patternType](arguments, index));
+    index = categorizedArgList[categorizedArgList.length-1].index;
+  }
+  return categorizedArgList;
+}
+
 const justifyLineRight = function(text, index, triangle){
   let numberOfspaces = triangle.length - text.length;
   let space = drawLine(' ',numberOfspaces);
@@ -49,3 +92,4 @@ exports.drawLine = drawLine;
 exports.categorizeArguments = categorizeArguments;
 exports.generateLine = generateLine;
 exports.justifyLineRight = justifyLineRight;
+exports.groupArguments = groupArguments;

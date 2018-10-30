@@ -139,7 +139,37 @@ const drawTriangle = function(patternDetails){
   return result.join('\n');
 }
 
+const generatePatterns = function(argument){
+  let index = 0;
+  let patterns = [];
+  while(argument[index]){
+    type = argument[index].pattern,
+    width = argument[index].width,
+    height = argument[index].height,
+    patterns.push(selectTypeOfPattern(type, width, height));
+    index++;
+  }
+  return patterns;
+}
+
+const selectTypeOfPattern = function(type, width, height){
+  let patternOfType = type.split('_');
+  let typeOf = patternOfType[1];
+  let fillType = patternOfType[0];
+  switch(typeOf){
+    case 'rectangle': 
+      return drawRectangle({type:fillType, width:+width, height:+height});
+    case 'triangle':
+      return drawTriangle({type:fillType, width:+width, height:+height});
+    case 'diamond':
+      return drawDiamond({type:fillType, width:+width, height:+height});
+    default:
+      console.log('Wrong Type')
+  }
+}
+
 exports.drawTriangle = drawTriangle;
 exports.drawDiamond = drawDiamond;
 exports.drawRectangle = drawRectangle;
 exports.categorizeArguments = categorizeArguments;
+exports.generatePatterns = generatePatterns;
