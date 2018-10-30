@@ -58,6 +58,12 @@ const justifyLineRight = function(text, index, triangle){
   return space + text;
 }
 
+const justifyLineLeft = function(text, index, triangle){
+  let numberOfspaces = triangle.length - text.length;
+  let space = drawLine(' ',numberOfspaces);
+  return text + space;
+}
+
 const fillWithStar = function(times){
   let line = new Array(times).fill('*');
   return line.join('');
@@ -93,3 +99,4 @@ exports.categorizeArguments = categorizeArguments;
 exports.generateLine = generateLine;
 exports.justifyLineRight = justifyLineRight;
 exports.groupArguments = groupArguments;
+exports.justifyLineLeft = justifyLineLeft;

@@ -47,7 +47,7 @@ assert.equal(justifyLineRight('*',0,['','','','']), '   *');
 
 let userInput = ['1','2','filled_rectangle',2,2,'filled_diamond',4];
 let expectedOut = [{pattern: 'filled_rectangle', width: 2, height: 2, index: 3}, 
-                   {pattern: 'filled_diamond', height: 4, index:5}];
+                   {pattern: 'filled_diamond', width: 4, index:5}];
 assert.deepEqual(groupArguments(userInput), expectedOut);
 
 console.log("All Test Passed.")

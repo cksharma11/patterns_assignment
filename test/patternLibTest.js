@@ -44,13 +44,13 @@ assert.equal(drawRectangle({type:"alternative", width:20,height:5}),alternateRec
 
 /*---------------- Test for triangle ---------------------*/
 
-let triangleLeft_2  = "*\n";
+let triangleLeft_2  = "* \n";
 triangleLeft_2     += "**";
 assert.equal(drawTriangle({type:"left", width:2}),triangleLeft_2);
 
-let triangleLeft_4 = "*\n";
-triangleLeft_4    += "**\n";
-triangleLeft_4    += "***\n";
+let triangleLeft_4 = "*   \n";
+triangleLeft_4    += "**  \n";
+triangleLeft_4    += "*** \n";
 triangleLeft_4    += "****";
 assert.equal(drawTriangle({type:"left", width:4}),triangleLeft_4);
 
@@ -66,39 +66,39 @@ assert.equal(drawTriangle({type:"right", width:4}),triangleRight_4);
 
 /*-------------- Test for diamonds ------------------*/
 
-let filledDiamond_3 = " *\n";
+let filledDiamond_3 = " * \n";
 filledDiamond_3    += "***\n";
-filledDiamond_3    += " *";
+filledDiamond_3    += " * ";
 assert.equal(drawDiamond({type:"filled", width: 3}), filledDiamond_3);
 
-let filledDiamond_5 = "  *\n";
-filledDiamond_5    += " ***\n";
+let filledDiamond_5 = "  *  \n";
+filledDiamond_5    += " *** \n";
 filledDiamond_5    += "*****\n";
-filledDiamond_5    += " ***\n";
-filledDiamond_5    += "  *";
+filledDiamond_5    += " *** \n";
+filledDiamond_5    += "  *  ";
 assert.equal(drawDiamond({type: "filled", width: 5}), filledDiamond_5);
 
-let hollowDiamond_3 = " *\n";
+let hollowDiamond_3 = " * \n";
 hollowDiamond_3    += "* *\n";
-hollowDiamond_3    += " *";
+hollowDiamond_3    += " * ";
 assert.equal(drawDiamond({type: "hollow", width: 3}), hollowDiamond_3);
 
-let hollowDiamond_5 = "  *\n";
-hollowDiamond_5    += " * *\n";
+let hollowDiamond_5 = "  *  \n";
+hollowDiamond_5    += " * * \n";
 hollowDiamond_5    += "*   *\n"
-hollowDiamond_5    += " * *\n";
-hollowDiamond_5    += "  *";
+hollowDiamond_5    += " * * \n";
+hollowDiamond_5    += "  *  ";
 assert.equal(drawDiamond({type: "hollow", width: 5}), hollowDiamond_5);
 
-let angledDiamond_3 = " *\n";
+let angledDiamond_3 = " * \n";
 angledDiamond_3    += "* *\n";
-angledDiamond_3    += " *";
+angledDiamond_3    += " * ";
 assert.equal(drawDiamond({type :"angled", width: 3 }), angledDiamond_3);
 
-let angledDiamond_5 = "  *\n";
-angledDiamond_5    += " / \\\n";
+let angledDiamond_5 = "  *  \n";
+angledDiamond_5    += " / \\ \n";
 angledDiamond_5    += "*   *\n";
-angledDiamond_5    += " \\ /\n";
-angledDiamond_5    += "  *";
+angledDiamond_5    += " \\ / \n";
+angledDiamond_5    += "  *  ";
 assert.equal(drawDiamond({type: 'angled', width: 5}), angledDiamond_5);
 console.log("All Test Passed.");

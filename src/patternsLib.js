@@ -6,7 +6,8 @@ const {
   drawLine,
   generateLine,
   categorizeArguments,
-  justifyLineRight
+  justifyLineRight,
+  justifyLineLeft
 } = lib;
 
 const generateFilledDiamond = function(height){
@@ -18,7 +19,7 @@ const generateFilledDiamond = function(height){
     diamond[row] = fillWithSpace(numberOfSpace);
     diamond[row] += fillWithStar(numOfStarNeeded);
   }
-  return diamond;
+  return diamond.map(justifyLineLeft);
 }
 
 const generateHollowDiamond = function(height){
@@ -38,7 +39,7 @@ const generateHollowDiamond = function(height){
 
   numberOfSpace = Math.abs((height - unwantedStars)/2);
   diamond[height-1] = fillSpaceEndWithStar(numberOfSpace);
-  return diamond;
+  return diamond.map(justifyLineLeft);
 }
 
 const generateAngledDiamond = function(height){
@@ -65,7 +66,7 @@ const generateAngledDiamond = function(height){
   }
   numberOfSpace = Math.abs((height - unwantedStars)/2);
   diamond[height-1] = fillSpaceEndWithStar(numberOfSpace);
-  return diamond;
+  return diamond.map(justifyLineLeft);
 }
 
 const drawDiamond = function(patternDetails){
@@ -116,7 +117,7 @@ const drawRectangle = function(patternDetails){
   return rectangle.join('\n');
 }
 
-const generateLeftAlignedTriangle = function(height){
+const generateTriangleHelper = function(height){
   let triangle = new Array(height).fill('');
   
   return triangle.map(function(row, index){
@@ -124,8 +125,13 @@ const generateLeftAlignedTriangle = function(height){
   });
 }
 
+const generateLeftAlignedTriangle = function(height){
+  let triangle = generateTriangleHelper(height);
+  return triangle.map(justifyLineLeft);
+}
+
 const generateRightAlignedTriangle = function(height){  
-  let triangle = generateLeftAlignedTriangle(height);
+  let triangle = generateTriangleHelper(height);
   return triangle.map(justifyLineRight);
 }
 
