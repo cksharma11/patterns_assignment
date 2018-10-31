@@ -7,7 +7,11 @@ const {
   generateLine,
   categorizeArguments,
   justifyLineRight,
-  justifyLineLeft
+  justifyLineLeft,
+  isFlip,
+  isMirror,
+  mirrorPattern,
+  flipPattern
 } = lib;
 
 const generateFilledDiamond = function(height){
@@ -145,14 +149,28 @@ const drawTriangle = function(patternDetails){
   return result;
 }
 
+const getMovedPattern = function(isFlip, isMirror){
+  if(isMirror){
+    return mirrorPattern(pattern);
+  }
+  if(isFlip){
+    return flipPattern(pattern);
+  }
+  return pattern;
+}
+
 const generatePatterns = function(argument){
   let index = 0;
   let patterns = [];
-  while(argument[index]){
-    type = argument[index].pattern,
-    width = argument[index].width,
-    height = argument[index].height,
-    patterns.push(selectTypeOfPattern(type, width, height));
+  let isFlip = argument[argument.length-1].isFlip;
+  let isMirror = argument[argument.length-1].isMirror;
+  while(index < argument.length-1){
+    type = argument[index].pattern;
+    width = argument[index].width;
+    height = argument[index].height;
+    pattern = selectTypeOfPattern(type, width, height);
+    pattern = getMovedPattern(isFlip, isMirror);
+    patterns.push(pattern);
     index++;
   }
   return patterns;

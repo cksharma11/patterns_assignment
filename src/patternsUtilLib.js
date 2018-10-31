@@ -34,22 +34,22 @@ const arrangeDiaArg = function(arguments, index){
   };
 }
 
-const groupArguments = function(arguments){
-  arguments = arguments.slice(2);
-  let index = 0;
-  let categorizedArgList = [];
-  let categories = {
-    rectangle: arrangeRectArg,
-    triangle: arrangeTriArg,
-    diamond: arrangeDiaArg
-  }
-  while(arguments[index]){
-    let type = arguments[index].split('_');
-    let patternType = type[1];
-    categorizedArgList.push(categories[patternType](arguments, index));
-    index = categorizedArgList[categorizedArgList.length-1].index;
-  }
-  return categorizedArgList;
+const isMirror = function(arguments){
+  return arguments[2] == 'mirror';
+}
+
+const isFlip = function(arguments){
+  return arguments[2] == 'flip';
+}
+
+const flipPattern = function(patetrn){
+  return patetrn.map(function(line){
+    return line.split('').reverse().join('');
+  });
+}
+
+const mirrorPattern = function(pattern){
+  return pattern.reverse();
 }
 
 const justifyLineRight = function(text, index, triangle){
@@ -79,7 +79,6 @@ const fillSpaceEndWithStar = function(times){
   return line.join('')+'*';
 }
 
-
 const drawLine = function(symbol, length){
   let line = new Array(length).fill(symbol);
   return line.join('');
@@ -91,6 +90,33 @@ const generateLine = function(symbol, length){
   return line.join('');
 }
 
+const groupArguments = function(arguments){
+  let actualArguments = arguments.slice(2);
+  let flipStatus = isFlip(arguments);
+  let mirrorStatus = isMirror(arguments);
+  if(flipStatus || mirrorStatus){
+    actualArguments = arguments.slice(3);
+  }
+  return groupArgumentsHelper(actualArguments, 0, flipStatus, mirrorStatus);
+}
+
+const groupArgumentsHelper = function(actualArguments, index, flipStatus, mirrorStatus){
+  let categorizedArgList = [];
+  let categories = {
+    rectangle: arrangeRectArg,
+    triangle: arrangeTriArg,
+    diamond: arrangeDiaArg
+  }
+  while(actualArguments[index]){
+    let type = actualArguments[index].split('_');
+    let patternType = type[1];
+    categorizedArgList.push(categories[patternType](actualArguments, index));
+    index = categorizedArgList[categorizedArgList.length-1].index;
+  }
+  categorizedArgList.push({isMirror: mirrorStatus, isFlip: flipStatus});
+  return categorizedArgList;
+}
+
 exports.fillWithStar = fillWithStar;
 exports.fillWithSpace = fillWithSpace;
 exports.fillSpaceEndWithStar = fillSpaceEndWithStar;
@@ -100,3 +126,7 @@ exports.generateLine = generateLine;
 exports.justifyLineRight = justifyLineRight;
 exports.groupArguments = groupArguments;
 exports.justifyLineLeft = justifyLineLeft;
+exports.isFlip = isFlip;
+exports.isMirror = isMirror;
+exports.flipPattern = flipPattern;
+exports.mirrorPattern = mirrorPattern;

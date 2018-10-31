@@ -4,7 +4,7 @@ const categorizeArguments = require("./src/patternsUtilLib.js").categorizeArgume
 const main = function(){
   let patternDetails = categorizeArguments(process.argv);
   let diamond = drawDiamond(patternDetails);
-  console.log(diamond);
+  console.log(diamond.join('\n'));
 }
 
 main();

@@ -4,7 +4,7 @@ const categorizeArguments = require("./src/patternsUtilLib.js").categorizeArgume
 const main = function(){
   let triangleDetails = categorizeArguments(process.argv);
   let triangle = drawTriangle(triangleDetails);
-  console.log(triangle);
+  console.log(triangle.join('\n'));
 }
 
 main();
