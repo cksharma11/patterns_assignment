@@ -78,7 +78,7 @@ const drawDiamond = function(patternDetails){
     angled: generateAngledDiamond
   }
   let result = diamond[type](width);
-  return result.join('\n');
+  return result;
 }
 
 const generateFilledRectangle = function(width, height){
@@ -114,7 +114,7 @@ const drawRectangle = function(patternDetails){
     alternative: generateAlternateRectangle 
   }
   let rectangle = rectangleOfType[type](width, height);
-  return rectangle.join('\n');
+  return rectangle;
 }
 
 const generateTriangleHelper = function(height){
@@ -142,7 +142,7 @@ const drawTriangle = function(patternDetails){
     left: generateLeftAlignedTriangle
   }
   let result = triangle[type](width);
-  return result.join('\n');
+  return result;
 }
 
 const generatePatterns = function(argument){
@@ -174,8 +174,18 @@ const selectTypeOfPattern = function(type, width, height){
   }
 }
 
+const zipPatterns = function(pattern1, pattern2){
+  let maxLength = Math.min(pattern1.length, pattern2.length);
+  let zippedPattern = [];
+  for(let index = 0; index < maxLength; index++){
+    zippedPattern[index] = [pattern1[index],pattern2[index]].join('');
+  };
+  return zippedPattern.join('\n');
+};
+
 exports.drawTriangle = drawTriangle;
 exports.drawDiamond = drawDiamond;
 exports.drawRectangle = drawRectangle;
 exports.categorizeArguments = categorizeArguments;
 exports.generatePatterns = generatePatterns;
+exports.zipPatterns = zipPatterns;
