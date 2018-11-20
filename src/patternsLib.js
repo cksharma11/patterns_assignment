@@ -149,7 +149,7 @@ const drawTriangle = function(patternDetails){
   return result;
 }
 
-const getMovedPattern = function(isFlip, isMirror){
+const getMovedPattern = function(pattern ,isFlip, isMirror){
   if(isMirror){
     return mirrorPattern(pattern);
   }
@@ -165,40 +165,63 @@ const generatePatterns = function(argument){
   let isFlip = argument[argument.length-1].isFlip;
   let isMirror = argument[argument.length-1].isMirror;
   while(index < argument.length-1){
-    type = argument[index].pattern;
-    width = argument[index].width;
-    height = argument[index].height;
-    pattern = selectTypeOfPattern(type, width, height);
-    pattern = getMovedPattern(isFlip, isMirror);
-    patterns.push(pattern);
+    let type = argument[index].pattern;
+    let width = argument[index].width;
+    let height = argument[index].height;
+    let generatedPattern = generatePatternOfType(type, width, height);
+    generatedPattern = getMovedPattern(generatedPattern,isFlip, isMirror);
+    patterns.push(generatedPattern);
     index++;
   }
+  patterns = equateArrayElements(patterns);
   return patterns;
 }
 
-const selectTypeOfPattern = function(type, width, height){
+const generatePatternOfType = function(type, width, height){
   let patternOfType = type.split('_');
   let typeOf = patternOfType[1];
   let fillType = patternOfType[0];
-  switch(typeOf){
-    case 'rectangle': 
-      return drawRectangle({type:fillType, width:+width, height:+height});
-    case 'triangle':
-      return drawTriangle({type:fillType, width:+width, height:+height});
-    case 'diamond':
-      return drawDiamond({type:fillType, width:+width, height:+height});
-    default:
-      console.log('Wrong Type')
-  }
+  let pattern = {};
+  pattern["rectangle"] = drawRectangle;
+  pattern["triangle"] = drawTriangle;
+  pattern["diamond"] = drawDiamond;
+  return pattern[typeOf]({type:fillType, width:+width, height:+height}); 
 }
 
-const zipPatterns = function(pattern1, pattern2){
-  let maxLength = Math.min(pattern1.length, pattern2.length);
-  let zippedPattern = [];
-  for(let index = 0; index < maxLength; index++){
-    zippedPattern[index] = [pattern1[index],pattern2[index]].join('');
-  };
-  return zippedPattern.join('\n');
+const getElementsLength = function(array){
+  return array.map(function(element){
+    return element.length;
+  });
+};
+
+const pushSpace = function(array, times){
+  let lengths = getElementsLength(array);
+  let numOfspaces = array[array.length-1].length;
+  let space = fillWithSpace(numOfspaces);
+  for(let index = 0; index < times; index++){
+    array.push(space);
+  }
+  return array;
+}
+
+const equateArrayElements = function(array){
+  let lengths = getElementsLength(array);
+  let maxLength = Math.max.apply(0, lengths);
+  for(let index = 0; index < array.length; index++){
+    pushSpace(array[index], maxLength - lengths[index]);
+  }
+  return array;
+}
+
+const zipPatterns = function(pattern){
+  let result = [];
+  for(let index = 0; index < pattern[0].length; index++){
+    result[index] = '';
+    for(let innerIndex = 0; innerIndex < pattern.length; innerIndex++){
+      result[index] = result[index] + ' '+ pattern[innerIndex][index]; 
+    }
+  }
+  return result;
 };
 
 exports.drawTriangle = drawTriangle;
